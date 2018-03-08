@@ -1,0 +1,24 @@
+{
+  "name": "pidb",
+  "version": "1.0.0",
+  "description": "Simple json database",
+  "main": "index.js",
+  "author": "Mihkel Baranov",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "dev": "tsc --watch",
+    "build": "tsc",
+    "test": "ava test/**/*.js",
+    "docs": "typedoc --out docs index.ts --exclude \"test/*.ts\""
+  },
+  "devDependencies": {
+    "@types/node": "^9.4.6",
+    "ava": "^0.25.0",
+    "supertest": "^3.0.0",
+    "tslint": "^5.9.1",
+    "typedoc": "^0.11.0",
+    "tslint-sonarts": "^1.6.0",
+    "typescript": "^2.7.2"
+  }
+}
