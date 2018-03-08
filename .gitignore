@@ -40,3 +40,4 @@ test/test.js
 test/test.d.ts
 .cache
 .vscode
+pidb

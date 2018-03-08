@@ -88,7 +88,7 @@ class Pidb {
 	 * Add new document
 	 * @param document json object to save
 	 */
-	private push(document: { id: string }) {
+	private push(document) {
 		const id = document.id ? document.id : this.generate_id();
 		return this.data[id] = Object.assign({ id }, document);
 	}
