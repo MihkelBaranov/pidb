@@ -20,7 +20,6 @@ class Pidb {
             fs.mkdirSync(storage);
         }
         this.storage = storage;
-        return this;
     }
     /**
      * Read collections

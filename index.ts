@@ -22,8 +22,6 @@ class Pidb {
 		}
 
 		this.storage = storage;
-
-		return this;
 	}
 
 	/**

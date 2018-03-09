@@ -7,7 +7,7 @@ declare class Pidb {
      * Inti database
      * @param storage path to doc storage
      */
-    init(storage: string): this;
+    init(storage: string): void;
     /**
      * Read collections
      */
