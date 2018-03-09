@@ -120,16 +120,23 @@ class Pidb {
 	}
 
 	/**
-	 * Find documeny by id
-	 * @param id document id
+	 * Find document
+	 * @param query object to search for
+	 * @param find whether to use find or filter methods
 	 */
-	private find(id: string) {
-		return this.data[id];
+	private find(query, find?): Array<{}> | object {
+		const keys = Object.keys(query).filter((key) => query[key] !== undefined);
+		const process = (item) => keys.some((key) => item[key] === query[key]);
+
+		if (find) {
+			return this.documents().find(process) || {};
+		}
+		return this.documents().filter(process) || [];
 	}
 
 	/**
 	 * Update document
-	 * @param id document id
+	 * @param id document iddb.collection("tracks.json").find({plays: 0}, true)
 	 * @param data data to replace
 	 */
 	private update(id: string, data) {

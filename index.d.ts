@@ -48,13 +48,14 @@ declare class Pidb {
      */
     private documents();
     /**
-     * Find documeny by id
-     * @param id document id
+     * Find document
+     * @param query object to search for
+     * @param find whether to use find or filter methods
      */
-    private find(id);
+    private find(query, find?);
     /**
      * Update document
-     * @param id document id
+     * @param id document iddb.collection("tracks.json").find({plays: 0}, true)
      * @param data data to replace
      */
     private update(id, data);
