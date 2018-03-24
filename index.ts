@@ -115,8 +115,9 @@ class Pidb {
 	/**
 	 * Return json data
 	 */
-	private documents() {
-		return Object.values(this.data);
+	private documents(options?: { skip: number, limit: number }) {
+		const documents = Object.values(this.data);
+		return options ? documents.splice(options.skip, options.limit + options.skip) : documents;
 	}
 
 	/**

@@ -46,7 +46,7 @@ declare class Pidb {
     /**
      * Return json data
      */
-    private documents();
+    private documents(options?);
     /**
      * Find document
      * @param query object to search for
