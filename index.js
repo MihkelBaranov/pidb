@@ -79,7 +79,7 @@ class Pidb {
      */
     push(document) {
         const id = document.id ? document.id : this.generate_id();
-        return this.data[id] = Object.assign({ id }, document);
+        return this.data[id] = Object.assign({ id }, document, this.data[id]);
     }
     /**
      * Delete selected collection
@@ -111,15 +111,17 @@ class Pidb {
      * Find one document
      * @param query object to search for
      */
-    findOne(query, options) {
-        return this.documents(options).find(this._build(query)) || {};
+    findOne(query) {
+        return this.documents().find(this._build(query)) || {};
     }
     /**
      * Find documents
      * @param query object to search for
      */
     find(query, options) {
-        return this.documents(options).filter(this._build(query)) || [];
+        return Object.keys(query).length === 0 ?
+            this.documents(options) :
+            this.documents(options).filter(this._build(query)) || [];
     }
     /**
      * Update document
@@ -142,8 +144,11 @@ class Pidb {
      * @param query object
      */
     _build(query) {
-        return (item) => Object.keys(query).filter((key) => query[key] !== undefined)
-            .some((key) => item[key] === query[key]);
+        return (item) => Object.keys(query).filter((key) => {
+            return query[key] !== undefined && item[key] !== undefined;
+        }).some((key) => {
+            return item[key].toLowerCase().includes(query[key].toLowerCase());
+        });
     }
 }
 exports.Pidb = Pidb;

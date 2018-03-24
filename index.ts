@@ -89,7 +89,7 @@ class Pidb {
 	 */
 	private push(document) {
 		const id = document.id ? document.id : this.generate_id();
-		return this.data[id] = Object.assign({ id }, document);
+		return this.data[id] = Object.assign({ id }, document, this.data[id]);
 	}
 
 	/**
@@ -125,8 +125,8 @@ class Pidb {
 	 * Find one document
 	 * @param query object to search for
 	 */
-	private findOne(query, options?: { skip: number, limit: number }) {
-		return this.documents(options).find(this._build(query)) || {};
+	private findOne(query) {
+		return this.documents().find(this._build(query)) || {};
 	}
 
 	/**
@@ -134,7 +134,9 @@ class Pidb {
 	 * @param query object to search for
 	 */
 	private find(query, options?: { skip: number, limit: number }) {
-		return this.documents(options).filter(this._build(query)) || [];
+		return Object.keys(query).length === 0 ?
+			this.documents(options) :
+			this.documents(options).filter(this._build(query)) || [];
 	}
 
 	/**
@@ -154,13 +156,17 @@ class Pidb {
 	private generate_id() {
 		return crypto.randomBytes(16).toString("hex");
 	}
+
 	/**
 	 * Build query
 	 * @param query object
 	 */
 	private _build(query) {
-		return (item) => Object.keys(query).filter((key) => query[key] !== undefined)
-			.some((key) => item[key] === query[key]);
+		return (item) => Object.keys(query).filter((key) => {
+			return query[key] !== undefined && item[key] !== undefined;
+		}).some((key) => {
+			return item[key].toLowerCase().includes(query[key].toLowerCase());
+		});
 	}
 }
 

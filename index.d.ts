@@ -54,7 +54,7 @@ declare class Pidb {
      * Find one document
      * @param query object to search for
      */
-    private findOne(query, options?);
+    private findOne(query);
     /**
      * Find documents
      * @param query object to search for
