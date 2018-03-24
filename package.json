@@ -1,6 +1,6 @@
 {
   "name": "pidb",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "description": "Simple json database",
   "main": "index.js",
   "author": "Mihkel Baranov",
@@ -15,7 +15,6 @@
   "devDependencies": {
     "@types/node": "^9.4.6",
     "ava": "^0.25.0",
-    "supertest": "^3.0.0",
     "tslint": "^5.9.1",
     "typedoc": "^0.11.0",
     "tslint-sonarts": "^1.6.0",

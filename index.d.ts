@@ -7,7 +7,9 @@ declare class Pidb {
      * Inti database
      * @param storage path to doc storage
      */
-    init(storage: string): void;
+    init(storage: string, options?: {
+        autosync: boolean;
+    }): void;
     /**
      * Read collections
      */
@@ -21,6 +23,7 @@ declare class Pidb {
         documents: any;
         drop: any;
         find: any;
+        findOne: any;
         push: any;
         remove: any;
         update: any;
@@ -48,11 +51,15 @@ declare class Pidb {
      */
     private documents(options?);
     /**
-     * Find document
+     * Find one document
      * @param query object to search for
-     * @param find whether to use find or filter methods
      */
-    private find(query, find?);
+    private findOne(query, options?);
+    /**
+     * Find documents
+     * @param query object to search for
+     */
+    private find(query, options?);
     /**
      * Update document
      * @param id document iddb.collection("tracks.json").find({plays: 0}, true)
@@ -63,6 +70,11 @@ declare class Pidb {
      * Generate a random id for documents
      */
     private generate_id();
+    /**
+     * Build query
+     * @param query object
+     */
+    private _build(query);
 }
 declare const pidb: Pidb;
 export { Pidb, pidb };

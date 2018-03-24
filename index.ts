@@ -12,7 +12,7 @@ class Pidb {
 	 * Inti database
 	 * @param storage path to doc storage
 	 */
-	public init(storage: string) {
+	public init(storage: string, options?: { autosync: boolean }) {
 		if (!storage) {
 			throw new Error("No storage path required! init(path)");
 		}
@@ -68,6 +68,7 @@ class Pidb {
 			documents: this.documents.bind(this),
 			drop: this.drop.bind(this),
 			find: this.find.bind(this),
+			findOne: this.findOne.bind(this),
 			push: this.push.bind(this),
 			remove: this.remove.bind(this),
 			update: this.update.bind(this),
@@ -121,18 +122,19 @@ class Pidb {
 	}
 
 	/**
-	 * Find document
+	 * Find one document
 	 * @param query object to search for
-	 * @param find whether to use find or filter methods
 	 */
-	private find(query, find?): Array<{}> | object {
-		const keys = Object.keys(query).filter((key) => query[key] !== undefined);
-		const process = (item) => keys.some((key) => item[key] === query[key]);
+	private findOne(query, options?: { skip: number, limit: number }) {
+		return this.documents(options).find(this._build(query)) || {};
+	}
 
-		if (find) {
-			return this.documents().find(process) || {};
-		}
-		return this.documents().filter(process) || [];
+	/**
+	 * Find documents
+	 * @param query object to search for
+	 */
+	private find(query, options?: { skip: number, limit: number }) {
+		return this.documents(options).filter(this._build(query)) || [];
 	}
 
 	/**
@@ -151,6 +153,14 @@ class Pidb {
 	 */
 	private generate_id() {
 		return crypto.randomBytes(16).toString("hex");
+	}
+	/**
+	 * Build query
+	 * @param query object
+	 */
+	private _build(query) {
+		return (item) => Object.keys(query).filter((key) => query[key] !== undefined)
+			.some((key) => item[key].toLowerCase() === query[key].toLowerCase());
 	}
 }
 
