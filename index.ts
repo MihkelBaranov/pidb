@@ -165,7 +165,7 @@ class Pidb {
 		return (item) => Object.keys(query).filter((key) => {
 			return query[key] !== undefined && item[key] !== undefined;
 		}).some((key) => {
-			return item[key].toLowerCase().includes(query[key].toLowerCase());
+			return item[key].toString().toLowerCase().includes(query[key].toString().toLowerCase());
 		});
 	}
 }
