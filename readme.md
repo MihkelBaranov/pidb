@@ -15,7 +15,8 @@ Simple JSON database
 |                |Description                    |
 |----------------|-------------------------------|
 |`documents()` |List all documents in collection|
-|`find(id)` |Find document|
+|`find(query)` |Find documents|
+|`findOne(query)` |Find one document|
 |`push(document)` |Creates a new document in collection|
 |`update(id, data)` |Update document|
 |`remove(id)` |Remove document|

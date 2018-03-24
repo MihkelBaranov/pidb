@@ -160,7 +160,7 @@ class Pidb {
 	 */
 	private _build(query) {
 		return (item) => Object.keys(query).filter((key) => query[key] !== undefined)
-			.some((key) => item[key].toLowerCase() === query[key].toLowerCase());
+			.some((key) => item[key] === query[key]);
 	}
 }
 
