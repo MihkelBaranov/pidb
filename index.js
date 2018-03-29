@@ -105,7 +105,7 @@ class Pidb {
      */
     documents(options) {
         const documents = Object.values(this.data);
-        return options ? documents.splice(options.skip, options.limit + options.skip) : documents;
+        return options ? documents.splice(options.skip, options.limit) : documents;
     }
     /**
      * Find one document
